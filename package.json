@@ -1,0 +1,15 @@
+{
+  "name": "byc-2018",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "dependencies": {
+    "materialize-css": "^0.100.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "author": "kase cannon",
+  "license": "ISC"
+}

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bozeman Youth Cycling - 2018 Registration</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+  <!-- update the version number as needed -->
+  <script defer src="/__/firebase/4.11.0/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <script defer src="/__/firebase/4.11.0/firebase-auth.js"></script>
+  <!-- <script defer src="/__/firebase/4.11.0/firebase-database.js"></script> -->
+  <script defer src="https://www.gstatic.com/firebasejs/4.11.0/firebase-firestore.js"></script>
+  <script defer src="/__/firebase/4.11.0/firebase-messaging.js"></script>
+  <script defer src="/__/firebase/4.11.0/firebase-storage.js"></script>
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer src="/__/firebase/init.js"></script>
+
+  <script defer src="js/byc.js"></script>
+
+  <style>
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    main.container {
+      margin: 25px auto;
+      padding: 25px;
+    }
+
+    label[for='gender_female'] {
+      margin-right: 25px;
+    }
+
+    #confirmation-panel {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container z-depth-4">
+    <div class="row">
+      <div class="col s12 m3">
+        <img src="img/byc-logo.png" width="200px" />
+      </div>
+      <div class="col s12 m9">
+        <h1 class="light right text-flow">2018 Registration</h1>
+      </div>
+      <div class="col s12">
+        <p>This program is restricted to participants who are age 6 prior to June 1st, 2018</p>
+        <p>Please note: Only parents and legal guardians can register participants under the age of 18 years old.</p>
+      </div>
+    </div>
+    <div class="row">
+      <form id="form" class="col s12">
+        <h5 class="section light">Participant Contact Information</h5>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="first_name" name="first_name" type="text" class="validate" required="" aria-required="true">
+            <label for="first_name">First Name</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <input id="last_name" name="last_name" type="text" class="validate" required="" aria-required="true">
+            <label for="last_name">Last Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4">
+            <input type="text" class="datepicker" id="birthdate" name="birthdate">
+            <label for="birthdate">Birthdate</label>
+          </div>
+          <div class="input-field col s4">
+            <input type="text" class="text" id="age_june_1" name="age_june_1" readonly="true">
+            <label for="age_june_1">Age (June 1)</label>
+          </div>
+          <div class="col s4">
+            <label for="gender">Gender</label>
+            <p>
+              <input name="gender" type="radio" id="gender_female" class="with-gap" class="validate" required="" aria-required="true" />
+              <label for="gender_female">Female</label>
+              <input name="gender" type="radio" id="gender_male" class="with-gap" class="validate" required="" aria-required="true" />
+              <label for="gender_male">Male</label>
+            </p>
+          </div>
+        </div>
+        <div class="row program-day-panel">
+          <div class="col s12">
+            <label for="program_day">Program Day</label>
+            <p>
+              <input name="program_day" type="radio" id="program_day_monday" class="with-gap" class="validate" required="" aria-required="true"
+              />
+              <label for="program_day_monday">Monday</label>
+              <input name="program_day" type="radio" id="program_day_thursday" class="with-gap" class="validate" required="" aria-required="true"
+              />
+              <label for="program_day_thursday">Thursday</label>
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="school" name="school" type="text" class="validate" required="" aria-required="true">
+            <label for="school">School</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <input id="grade" name="grade" type="number" class="validate" required="" aria-required="true">
+            <label for="grade">Grade (Fall 2018)</label>
+          </div>
+        </div>
+
+        <h6 class="light">Mailing Address</h6>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="street_1" name="street_1" type="text" class="validate" required="" aria-required="true">
+            <label for="street_1">Street 1</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="street_2" name="street_2" type="text" class="validate">
+            <label for="street_2">Street 2</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="city" name="city" type="text" class="validate" required="" aria-required="true">
+            <label for="city">City</label>
+          </div>
+          <div class="input-field col s2">
+            <input id="state" name="state" type="text" class="validate" required="" aria-required="true">
+            <label for="state">State</label>
+          </div>
+          <div class="input-field col s4">
+            <input id="zipcode" name="zipcode" type="number" class="validate" required="" aria-required="true">
+            <label for="zipcode">ZIP</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col m6 s12">
+            <input id="phone" name="phone" type="tel" class="validate" required="" aria-required="true">
+            <label for="phone">Phone</label>
+          </div>
+          <div class="input-field col m6 s12">
+            <input id="email" name="email" type="email" class="validate" required="" aria-required="true">
+            <label for="email">Email</label>
+          </div>
+        </div>
+
+        <h5 class="header light">Primary Emergency Contact Information</h5>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="primary_first_name" name="primary_first_name" type="text" class="validate" required="" aria-required="true">
+            <label for="primary_first_name">First Name</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <input id="primary_last_name" name="primary_last_name" type="text" class="validate" required="" aria-required="true">
+            <label for="primary_last_name">Last Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col m6 s12">
+            <input id="primary_phone" name="primary_phone" type="tel" class="validate" required="" aria-required="true">
+            <label for="primary_phone">Phone</label>
+          </div>
+          <div class="input-field col m6 s12">
+            <input id="primary_email" name="primary_email" type="email" class="validate" required="" aria-required="true">
+            <label for="primary_email">Email</label>
+          </div>
+        </div>
+
+        <h5 class="header light">Secondary Emergency Contact Information</h5>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <input id="secondary_first_name" name="secondary_first_name" type="text" class="validate" required="" aria-required="true">
+            <label for="secondary_first_name">First Name</label>
+          </div>
+          <div class="input-field col s12 m6">
+            <input id="secondary_last_name" name="secondary_last_name" type="text" class="validate" required="" aria-required="true">
+            <label for="secondary_last_name">Last Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col m6 s12">
+            <input id="secondary_phone" name="secondary_phone" type="tel" class="validate" required="" aria-required="true">
+            <label for="secondary_phone">Phone</label>
+          </div>
+          <div class="input-field col m6 s12">
+            <input id="secondary_email" name="secondary_email" type="email" class="validate" required="" aria-required="true">
+            <label for="secondary_email">Email</label>
+          </div>
+        </div>
+
+        <h5 class="light">Allergies/Health Concerns</h5>
+        <p>
+          <input id="health_concerns" name="health_concerns" type="checkbox">
+          <label for="health_concerns">None</label>
+        </p>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="health_concerns_list" name="health_concerns" class="materialize-textarea"></textarea>
+            <label for="health_concerns_list">List any concerns here</label>
+          </div>
+        </div>
+
+        <h5 class="light">Signature</h5>
+        <div class="row">
+          <div class="input-field col s9">
+            <input id="signature_participant" name="signature_participant" type="text" class="validate" required="" aria-required="true">
+            <label for="signature_participant">Participant Name</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="signature_participant_age" name="signature_participant_age" type="text" class="validate" required="" aria-required="true">
+            <label for="signature_participant_age">Age</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s9">
+            <input id="signature_parent" name="signature_parent" type="text" class="validate" required="" aria-required="true">
+            <label for="signature_parent">Parent/Guardian Signature</label>
+          </div>
+          <div class="input-field col s3">
+            <input id="signature_parent_date" name="signature_parent_date" type="text" required="" aria-required="true">
+            <label for="signature_parent_date">Date</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s12">
+            <p>
+              <input id="photo_permission" name="photo_permission" type="checkbox">
+              <label for="photo_permission">I grant BOZEMAN YOUTH CYCLING permission to use photos taken during participation in activities for use in
+                advertising and on the web site, facebook and instagram.</label>
+            </p>
+          </div>
+        </div>
+
+        <p class="center">
+          <button id="submit" class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </p>
+
+      </form>
+
+      <div id="confirmation-panel">
+        <h1 class="center">You did it!</h1>
+        <p class="center">
+          <button id="show-form-btn" type="button" class="btn">Show Form</button>
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="load"></div>
+
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      // // The Firebase SDK is initialized and available here!
+      //
+      //firebase.auth().onAuthStateChanged(user => { });
+      // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+      // firebase.messaging().requestPermission().then(() => { });
+      // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+      //
+      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+
+      // const firebase = require("firebase");
+      // // Required for side-effects
+      // require("firebase/firestore");
+
+      try {
+        let app = firebase.app();
+        let features = ['auth', 'firestore', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+        document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+      } catch (e) {
+        console.error(e);
+        document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+      }
+
+
+      var db = firebase.firestore();
+
+      // var docRef = db.collection("cities").doc("LA");
+
+      // docRef.get().then(function (doc) {
+      //   if (doc.exists) {
+      //     console.log("Document data:", JSON.stringify(doc.data()));
+      //     document.querySelector("#city").value = doc.data().name;
+      //     document.querySelector("#city").focus();
+      //   } else {
+      //     // doc.data() will be undefined in this case
+      //     console.log("No such document!");
+      //   }
+      // }).catch(function (error) {
+      //   console.log("Error getting document:", error);
+      // });
+
+      //https://code.lengstorf.com/get-form-values-as-json/
+      const formToJSON = elements => [].reduce.call(elements, (data, element) => {
+        data[element.name] = element.value;
+        return data;
+      }, {});
+
+      $('#program_day').change(function () {
+        console.log('day=' + $('#program_day').val());
+      });
+
+      // $('button#submit').submit(function () {
+      $('button#submit').click(function () {
+        event.preventDefault();
+
+        //todo actually check...
+        console.log('valid', $("#form")[0].checkValidity());
+        //console.log('valid ' + $("#form").valid(), 'jquery'); // requires validate plugin
+
+
+        var data = {};
+        $("#form").serializeArray().map(function (x) { data[x.name] = x.value; });
+        console.log(JSON.stringify(data));
+
+        const data2 = formToJSON(form.elements);
+        console.log(JSON.stringify(data2, null, '  '));
+
+        if ($("#gender_male").is(':checked')) {
+          data.gender = 'Male';
+        }
+        if ($("#gender_female").is(':checked')) {
+          data.gender = 'Female';
+        }
+
+        data.program = getProgram(data.age, data.program_day);
+
+        sendRegistration(data);
+      });
+    });
+
+  </script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+
+  <script type="text/javascript">
+    $('.datepicker').pickadate({
+      selectMonths: true,
+      selectYears: 18,
+      min: new Date(2000, 0, 1),
+      max: new Date(2012, 4, 31),
+      today: '',
+      clear: 'Clear',
+      close: 'Ok',
+      closeOnSelect: true
+    });
+
+    $('#signature_parent_date').pickadate({
+      selectMonths: true,
+      selectYears: 1,
+      today: 'Today',
+      clear: 'Clear',
+      close: 'Ok',
+      closeOnSelect: true
+    });
+
+  </script>
+</body>
+
+</html>
