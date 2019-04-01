@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bozeman Youth Cycling - 2018 Registration</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB9zDy-fuURdxyeqvOCCeA2ynaicnbyin0",
+            authDomain: "bozemanyouthcycling-2019.firebaseapp.com",
+            databaseURL: "https://bozemanyouthcycling-2019.firebaseio.com",
+            projectId: "bozemanyouthcycling-2019",
+            storageBucket: "bozemanyouthcycling-2019.appspot.com",
+            messagingSenderId: "389216979437"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <!-- <script defer type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script defer type="text/javascript" src="js/materialize.min.js"></script>
+
+    <script defer type="text/javascript" src="js/registrations.js"></script> -->
+    <script defer type="text/javascript" src="js/programs.js"></script>
+
+</head>
+
+<body>
+
+</body>
+<script>
+    function escape(value) {
+        return `"${value}"`;
+    }
+
+    window.onload = function () {
+        var db = firebase.firestore();
+
+        db.collection("registrations")
+            .orderBy("timestamp")
+            .onSnapshot(function (querySnapshot) {
+                var csv = `First Name,Last Name,Age,Gender,School,Grade,Program,Program Day,Street 1,Street 2,City,State,Zip,Primary First Name,Primary Last Name,Primary Email,Primary Phone,Secondary First Name,Secondary Last Name,Secondary Email,Secondary Phone,Health Concerns<br/>`;
+                querySnapshot.forEach((doc) => {
+
+                    var participant = doc.data();
+                    participant.id = doc.id;
+                    var program = getProgram(participant);
+
+                    if (program === undefined) {
+                        console.log('program not found for', doc.id);
+                        program = programs[0];
+                    }
+
+                    csv += `${participant.first_name},${participant.last_name},${participant.age_june_1},${participant.gender},${participant.school},${participant.grade},${program.name},${program.day},${escape(participant.street_1)},${escape(participant.street_2)},${participant.city},${participant.state},${participant.zipcode},${participant.primary_first_name},${participant.primary_last_name},${participant.primary_email},${participant.primary_phone},${participant.secondary_first_name},${participant.secondary_last_name},${participant.secondary_email},${participant.secondary_phone},${escape(participant.health_concerns)}<br/>`;
+
+                    // signature_parent: "MacGregor Brownlow"
+                    // signature_parent_date: "3/31/2019"
+                });
+                document.body.innerHTML = csv;
+            });
+    };
+</script>
+
+</html>
