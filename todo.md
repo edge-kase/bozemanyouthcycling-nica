@@ -1,3 +1,22 @@
+2019 ------------------------------------------------------------------------
+
+commit code...
+
+send email?
+
+buttons on wordpress site
+
+could update the paid or add the paypal order id
+
+! order id on paypal - at least one name, maybe separate items?
+
+if multiples are added need to check the participant list to tell if they're on the waitlist, not just checking the list length
+
+
+
+
+
+2018 ------------------------------------------------------------------------
 do we want a note (warning) that they might end up on the wait list, since registration will fill quickly?
 
 

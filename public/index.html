@@ -3,23 +3,20 @@
 
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bozeman Youth Cycling - 2018 Registration</title>
+  <title>Bozeman Youth Cycling - 2019 Registration</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
 
-  <!-- update the version number as needed -->
-  <script defer src="/__/firebase/4.11.0/firebase-app.js"></script>
-  <!-- include only the Firebase features as you need -->
-  <script defer src="/__/firebase/4.11.0/firebase-auth.js"></script>
-  <!-- <script defer src="/__/firebase/4.11.0/firebase-database.js"></script> -->
-  <script defer src="https://www.gstatic.com/firebasejs/4.11.0/firebase-firestore.js"></script>
-  <script defer src="/__/firebase/4.11.0/firebase-messaging.js"></script>
-  <script defer src="/__/firebase/4.11.0/firebase-storage.js"></script>
-  <!-- initialize the SDK after all desired features are loaded -->
-  <script defer src="/__/firebase/init.js"></script>
-
-  <script defer src="js/byc.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96337119-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-96337119-2');
+  </script>
 
   <style>
     h1 {
@@ -27,16 +24,39 @@
       margin: 0;
     }
 
+    .closed-alert {
+      background-color: #ea454b;
+      color: white;
+      display: none;
+      font-size: 125%;
+      padding: 5px;
+    }
+
+    .waitlist-alert {
+      background-color: #ea454b;
+      color: white;
+      display: none;
+      font-size: 125%;
+      padding: 5px;
+    }
+
     main.container {
       margin: 25px auto;
       padding: 25px;
     }
 
-    label[for='gender_female'] {
+    label span {
       margin-right: 25px;
+      padding-left: 30px;
     }
 
-    #confirmation-panel {
+    #smartwaiver_floater,
+    #result-panel,
+    #confirmation-panel,
+    #waiver-panel,
+    #waitlist-panel,
+    #payment-complete-panel,
+    #register-another-panel {
       display: none;
     }
   </style>
@@ -49,324 +69,369 @@
         <img src="img/byc-logo.png" width="200px" />
       </div>
       <div class="col s12 m9">
-        <h1 class="light right text-flow">2018 Registration</h1>
-      </div>
-      <div class="col s12">
-        <p>This program is restricted to participants who are age 6 prior to June 1st, 2018</p>
-        <p>Please note: Only parents and legal guardians can register participants under the age of 18 years old.</p>
+        <h1 class="light right text-flow">2019 Registration
+        </h1>
       </div>
     </div>
-    <div class="row">
-      <form id="form" class="col s12">
-        <h5 class="section light">Participant Contact Information</h5>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="first_name" name="first_name" type="text" class="validate" required="" aria-required="true">
-            <label for="first_name">First Name</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="last_name" name="last_name" type="text" class="validate" required="" aria-required="true">
-            <label for="last_name">Last Name</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s4">
-            <input type="text" class="datepicker" id="birthdate" name="birthdate">
-            <label for="birthdate">Birthdate</label>
-          </div>
-          <div class="input-field col s4">
-            <input type="text" class="text" id="age_june_1" name="age_june_1" readonly="true">
-            <label for="age_june_1">Age (June 1)</label>
-          </div>
-          <div class="col s4">
-            <label for="gender">Gender</label>
-            <p>
-              <input name="gender" type="radio" id="gender_female" class="with-gap" class="validate" required="" aria-required="true" />
-              <label for="gender_female">Female</label>
-              <input name="gender" type="radio" id="gender_male" class="with-gap" class="validate" required="" aria-required="true" />
-              <label for="gender_male">Male</label>
-            </p>
-          </div>
-        </div>
-        <div class="row program-day-panel">
-          <div class="col s12">
-            <label for="program_day">Program Day</label>
-            <p>
-              <input name="program_day" type="radio" id="program_day_monday" class="with-gap" class="validate" required="" aria-required="true"
-              />
-              <label for="program_day_monday">Monday</label>
-              <input name="program_day" type="radio" id="program_day_thursday" class="with-gap" class="validate" required="" aria-required="true"
-              />
-              <label for="program_day_thursday">Thursday</label>
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="school" name="school" type="text" class="validate" required="" aria-required="true">
-            <label for="school">School</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="grade" name="grade" type="number" class="validate" required="" aria-required="true">
-            <label for="grade">Grade (Fall 2018)</label>
-          </div>
-        </div>
 
-        <h6 class="light">Mailing Address</h6>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="street_1" name="street_1" type="text" class="validate" required="" aria-required="true">
-            <label for="street_1">Street 1</label>
-          </div>
-          <div class="input-field col s12">
-            <input id="street_2" name="street_2" type="text" class="validate">
-            <label for="street_2">Street 2</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="city" name="city" type="text" class="validate" required="" aria-required="true">
-            <label for="city">City</label>
-          </div>
-          <div class="input-field col s2">
-            <input id="state" name="state" type="text" class="validate" required="" aria-required="true">
-            <label for="state">State</label>
-          </div>
-          <div class="input-field col s4">
-            <input id="zipcode" name="zipcode" type="number" class="validate" required="" aria-required="true">
-            <label for="zipcode">ZIP</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col m6 s12">
-            <input id="phone" name="phone" type="tel" class="validate" required="" aria-required="true">
-            <label for="phone">Phone</label>
-          </div>
-          <div class="input-field col m6 s12">
-            <input id="email" name="email" type="email" class="validate" required="" aria-required="true">
-            <label for="email">Email</label>
-          </div>
-        </div>
+    <p class="closed-alert">Programs and wait lists other than the Ridge Riders (14+) are currently full.</p>
 
-        <h5 class="header light">Primary Emergency Contact Information</h5>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="primary_first_name" name="primary_first_name" type="text" class="validate" required="" aria-required="true">
-            <label for="primary_first_name">First Name</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="primary_last_name" name="primary_last_name" type="text" class="validate" required="" aria-required="true">
-            <label for="primary_last_name">Last Name</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col m6 s12">
-            <input id="primary_phone" name="primary_phone" type="tel" class="validate" required="" aria-required="true">
-            <label for="primary_phone">Phone</label>
-          </div>
-          <div class="input-field col m6 s12">
-            <input id="primary_email" name="primary_email" type="email" class="validate" required="" aria-required="true">
-            <label for="primary_email">Email</label>
-          </div>
-        </div>
+    <p class="waitlist-header-alert waitlist-alert">All programs are currently full. Please complete the form to be
+      added to the wait list.</p>
 
-        <h5 class="header light">Secondary Emergency Contact Information</h5>
-        <div class="row">
-          <div class="input-field col s12 m6">
-            <input id="secondary_first_name" name="secondary_first_name" type="text" class="validate" required="" aria-required="true">
-            <label for="secondary_first_name">First Name</label>
-          </div>
-          <div class="input-field col s12 m6">
-            <input id="secondary_last_name" name="secondary_last_name" type="text" class="validate" required="" aria-required="true">
-            <label for="secondary_last_name">Last Name</label>
-          </div>
+    <form id="form" class="col s12">
+      <input type="hidden" name="paid" />
+      <input type="hidden" name="waiver" />
+      <div class="row">
+        <div class="col s12 form-instructions">
+          <p class="alert">Registration is currently open only for <strong>grades 1 through 5</strong>. Registration
+            for older ages will happen in late April or early May.</p>
+          <p>This program is restricted to participants who are age 6 prior to June 1st, 2019</p>
+          <p>Please note: Only parents and legal guardians can register participants under the age of 18 years old.
+          </p>
         </div>
-        <div class="row">
-          <div class="input-field col m6 s12">
-            <input id="secondary_phone" name="secondary_phone" type="tel" class="validate" required="" aria-required="true">
-            <label for="secondary_phone">Phone</label>
-          </div>
-          <div class="input-field col m6 s12">
-            <input id="secondary_email" name="secondary_email" type="email" class="validate" required="" aria-required="true">
-            <label for="secondary_email">Email</label>
-          </div>
-        </div>
-
-        <h5 class="light">Allergies/Health Concerns</h5>
-        <p>
-          <input id="health_concerns" name="health_concerns" type="checkbox">
-          <label for="health_concerns">None</label>
-        </p>
-        <div class="row">
-          <div class="input-field col s12">
-            <textarea id="health_concerns_list" name="health_concerns" class="materialize-textarea"></textarea>
-            <label for="health_concerns_list">List any concerns here</label>
-          </div>
-        </div>
-
-        <h5 class="light">Signature</h5>
-        <div class="row">
-          <div class="input-field col s9">
-            <input id="signature_participant" name="signature_participant" type="text" class="validate" required="" aria-required="true">
-            <label for="signature_participant">Participant Name</label>
-          </div>
-          <div class="input-field col s3">
-            <input id="signature_participant_age" name="signature_participant_age" type="text" class="validate" required="" aria-required="true">
-            <label for="signature_participant_age">Age</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s9">
-            <input id="signature_parent" name="signature_parent" type="text" class="validate" required="" aria-required="true">
-            <label for="signature_parent">Parent/Guardian Signature</label>
-          </div>
-          <div class="input-field col s3">
-            <input id="signature_parent_date" name="signature_parent_date" type="text" required="" aria-required="true">
-            <label for="signature_parent_date">Date</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col s12">
-            <p>
-              <input id="photo_permission" name="photo_permission" type="checkbox">
-              <label for="photo_permission">I grant BOZEMAN YOUTH CYCLING permission to use photos taken during participation in activities for use in
-                advertising and on the web site, facebook and instagram.</label>
-            </p>
-          </div>
-        </div>
-
-        <p class="center">
-          <button id="submit" class="btn waves-effect waves-light" type="submit" name="action">Submit
-            <i class="material-icons right">send</i>
-          </button>
-        </p>
-
-      </form>
-
-      <div id="confirmation-panel">
-        <h1 class="center">You did it!</h1>
-        <p class="center">
-          <button id="show-form-btn" type="button" class="btn">Show Form</button>
-        </p>
       </div>
 
+      <h5 class="section light">Participant Information</h5>
+
+      <button type="button" id="add-participant-btn" class="waves-effect waves-light btn-small"
+        data-participant-count="0">
+        <i class="material-icons left">person_add</i>
+        Add Another Rider
+      </button>
+
+      <h5 class="section light">Mailing Address</h5>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="street_1" name="street_1" type="text" class="validate" required="" aria-required="true">
+          <label for="street_1">Street 1</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="street_2" name="street_2" type="text" class="validate">
+          <label for="street_2">Street 2</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="city" name="city" type="text" class="validate" required="" aria-required="true">
+          <label for="city">City</label>
+        </div>
+        <div class="input-field col s2">
+          <input id="state" name="state" type="text" class="validate" required="" aria-required="true">
+          <label for="state">State</label>
+        </div>
+        <div class="input-field col s4">
+          <input id="zipcode" name="zipcode" type="number" class="validate" required="" aria-required="true">
+          <label for="zipcode">ZIP</label>
+        </div>
+      </div>
+
+      <h5 class="header light">Primary Emergency Contact Information</h5>
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="primary_first_name" name="primary_first_name" type="text" class="validate" required=""
+            aria-required="true">
+          <label for="primary_first_name">First Name</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <input id="primary_last_name" name="primary_last_name" type="text" class="validate" required=""
+            aria-required="true">
+          <label for="primary_last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col m6 s12">
+          <input id="primary_phone" name="primary_phone" type="tel" class="validate" pattern="\d{3}[\-]\d{3}[\-]\d{4}"
+            required="" aria-required="true">
+          <label for="primary_phone">Phone</label>
+        </div>
+        <div class="input-field col m6 s12">
+          <input id="primary_email" name="primary_email" type="email" class="validate" required="" aria-required="true">
+          <label for="primary_email">Email</label>
+        </div>
+      </div>
+
+      <h5 class="header light">Secondary Emergency Contact Information</h5>
+      <div class="row">
+        <div class="input-field col s12 m6">
+          <input id="secondary_first_name" name="secondary_first_name" type="text" class="validate" required=""
+            aria-required="true">
+          <label for="secondary_first_name">First Name</label>
+        </div>
+        <div class="input-field col s12 m6">
+          <input id="secondary_last_name" name="secondary_last_name" type="text" class="validate" required=""
+            aria-required="true">
+          <label for="secondary_last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col m6 s12">
+          <input id="secondary_phone" name="secondary_phone" type="tel" class="validate"
+            pattern="\d{3}[\-]\d{3}[\-]\d{4}" required="" aria-required="true">
+          <label for="secondary_phone">Phone</label>
+        </div>
+        <div class="input-field col m6 s12">
+          <input id="secondary_email" name="secondary_email" type="email" class="validate" required=""
+            aria-required="true">
+          <label for="secondary_email">Email</label>
+        </div>
+      </div>
+
+      <h5 class="light">Parent/Guardian Signature</h5>
+      <div class="row">
+        <div class="input-field col s9">
+          <input id="signature_parent" name="signature_parent" type="text" class="validate" required=""
+            aria-required="true">
+          <label for="signature_parent">Parent/Guardian Signature</label>
+        </div>
+        <div class="input-field col s3">
+          <input id="signature_parent_date" name="signature_parent_date" type="text" required="" aria-required="true">
+          <label for="signature_parent_date">Date</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12">
+          <p>
+            <label>
+              <input id="photo_permission" name="photo_permission" type="checkbox">
+              <span>I grant BOZEMAN YOUTH CYCLING permission to use photos taken during participation in activities for
+                use in advertising and on the web site, facebook and instagram.</span>
+            </label>
+          </p>
+        </div>
+      </div>
+
+      <p class="center">
+        Please review your information. When you click 'Submit', we will process your registration, then you can
+        complete
+        your payment and waiver.
+      </p>
+
+      <p class="center">
+        <button id="submit" class="btn waves-effect waves-light" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </p>
+    </form>
+
+    <div id="result-panel">
+      <table id="result">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Program</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="confirmation-panel">
+      <div class="divider teal" style="margin: 50px 0"></div>
+
+      <div id="payment-panel">
+        <h5 class="center light" style="margin-bottom: 50px">Please complete payment through PayPal</h5>
+        <div class="row">
+          <div class="col s6">
+            <h5>Registration Total: $<span id="total_amount">0</span></h5>
+          </div>
+          <div class="col s6">
+            <div id="paypal-button-container"></div>
+          </div>
+        </div>
+
+        <!-- Include the PayPal JavaScript SDK -->
+        <!-- <script
+          src="https://www.paypal.com/sdk/js?client-id=ATbOBkpWmMdpG3b5Ow-oWX4oGyokNZ7S_oTwCQRr_MOBNa2H2SfyLY5uxtuUCPZzRhamMJdMKVinL9xQ&currency=USD"></script> -->
+        <script
+          src="https://www.paypal.com/sdk/js?client-id=AXsYoxEFKJ_ypXO_CMdYdobWBKoGgKk9fJfOlKd6sC-JyDXVwn_OVvHRk5QFBNGrGEpJ9WZOtNrx9Kcb&currency=USD"></script>
+
+        <script>
+          paypal.Buttons({
+            createOrder: function (data, actions) {
+              return actions.order.create({
+                purchase_units: [{
+                  reference_id: payPalReferenceId,
+                  amount: {
+                    value: $('#total_amount').text()
+                  }
+                }],
+                application_context: {
+                  shipping_preference: 'NO_SHIPPING'
+                }
+              });
+            },
+
+            onApprove: function (data, actions) {
+              return actions.order.capture().then(function (details) {
+                //console.log(details);
+                $('#paypal_id').text(details.id);
+
+                $('#payment-panel').hide(300);
+                $('#payment-complete-panel').show(300);
+                $('#waiver-panel').show(300);
+                $('#smartwaiver_floater').show();
+                $('#register-another-panel').show(300);
+              });
+            }
+          }).render('#paypal-button-container');
+        </script>
+      </div>
+
+      <div id="payment-complete-panel">
+        <h5 class="center light flow-text">Thank you for your payment.</h5>
+        <h6 class="center">We will be contacting you soon!</h6>
+        <div class="center light">PayPal Reference #: <span id="paypal_id"></span></div>
+        <p class="center light">This is your confirmation, if you would like to print it for your records.</p>
+      </div>
+
+      <div id="waiver-panel">
+        <div class="divider teal" style="margin: 50px 0"></div>
+        <h5 class="center light flow-text">Please complete the waiver using the link in the lower right
+          of the screen.</h5>
+        <script
+          src="https://www.smartwaiver.com/m/webpl/f.js?webpl_waiver=5ab8e3ae036bc&webpl_title=Sign%20our%20waiver&webpl_align=Right&webpl_fontsize=20&webpl_background=%232bbbad&webpl_fontcolor=%23ffffff&webpl_font=Verdana"
+          type="text/javascript"></script>
+      </div>
+    </div>
+
+    <div id="waitlist-panel">
+      <div class="divider teal" style="margin: 50px 0"></div>
+      <div class="row">
+        <div class="col s12 center">
+          <h5 class="text-flow light">You have been added to the wait list. </h5>
+          <p>We will contact you as we finalize the groups for this year's programs. </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="register-another-panel">
+      <div class="divider teal" style="margin: 50px 0"></div>
+      <div class="center">
+        <h5 class="center light text-flow">Need to register another rider?</h5>
+        <button id="show-form-btn" type="button" class="btn waves-effect waves-light">Registration Form</button>
+      </div>
     </div>
   </main>
 
-  <div id="load"></div>
-
-
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyB9zDy-fuURdxyeqvOCCeA2ynaicnbyin0",
+      authDomain: "bozemanyouthcycling-2019.firebaseapp.com",
+      databaseURL: "https://bozemanyouthcycling-2019.firebaseio.com",
+      projectId: "bozemanyouthcycling-2019",
+      storageBucket: "bozemanyouthcycling-2019.appspot.com",
+      messagingSenderId: "389216979437"
+    };
+    firebase.initializeApp(config);
+  </script>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-      // // The Firebase SDK is initialized and available here!
-      //
-      //firebase.auth().onAuthStateChanged(user => { });
-      // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-      // firebase.messaging().requestPermission().then(() => { });
-      // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-      //
-      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-
-      // const firebase = require("firebase");
-      // // Required for side-effects
-      // require("firebase/firestore");
-
-      try {
-        let app = firebase.app();
-        let features = ['auth', 'firestore', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-        document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-      } catch (e) {
-        console.error(e);
-        document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+    var responseCount = 0;
+    var payPalReferenceId = '';
+    function sendRegistrationResponse(docId, amount) {
+      responseCount += 1;
+      if (amount > 0) {
+        if (payPalReferenceId.length > 0) {
+          payPalReferenceId += "|";
+        }
+        payPalReferenceId += docId;
       }
 
+      if ($(".participant").length === responseCount) {
+        $('#form').hide(300);
+        $('#result-panel').show(300);
+        if ($('[id=total_amount]').text() === '0') {
+          $('#waitlist-panel').show(300);
+          $('#register-another-panel').show(300);
+        } else {
+          $('#confirmation-panel').show(300);
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // try { //todo remove
+      //   var urlParams = new URLSearchParams(window.location.search);
+      //   if (urlParams.has('page')) {
+      //     $('#form').hide(300);
+      //     $('#' + urlParams.get('page') + '-panel').show(300);
+      //   }
+      // } catch (error) { }
 
       var db = firebase.firestore();
 
-      // var docRef = db.collection("cities").doc("LA");
+      initWaitListWatch(db);
 
-      // docRef.get().then(function (doc) {
-      //   if (doc.exists) {
-      //     console.log("Document data:", JSON.stringify(doc.data()));
-      //     document.querySelector("#city").value = doc.data().name;
-      //     document.querySelector("#city").focus();
-      //   } else {
-      //     // doc.data() will be undefined in this case
-      //     console.log("No such document!");
-      //   }
-      // }).catch(function (error) {
-      //   console.log("Error getting document:", error);
-      // });
+      $('[type="tel"]').mask("000-000-0000");
+      $('#signature_parent_date').val(new Date().formatMMDDYYYY());
 
-      //https://code.lengstorf.com/get-form-values-as-json/
-      const formToJSON = elements => [].reduce.call(elements, (data, element) => {
-        data[element.name] = element.value;
-        return data;
-      }, {});
-
-      $('#program_day').change(function () {
-        console.log('day=' + $('#program_day').val());
-      });
-
-      // $('button#submit').submit(function () {
       $('button#submit').click(function () {
         event.preventDefault();
 
-        //todo actually check...
-        console.log('valid', $("#form")[0].checkValidity());
-        //console.log('valid ' + $("#form").valid(), 'jquery'); // requires validate plugin
+        var $form = $("#form");
+        var registrationForm = $form[0];
 
+        if (!registrationForm.checkValidity()) {
+          console.log('failed validity check', registrationForm.reportValidity);
+          if (typeof (registrationForm.reportValidity) === 'function') {
+            registrationForm.reportValidity();
+          }
+
+          return false;
+        }
+
+        if ($form.data('submitted') === true) {
+          // Previously submitted - don't submit again
+          return;
+        } else {
+          // Mark it so that the next submit can be ignored
+          $form.data('submitted', true);
+        }
 
         var data = {};
-        $("#form").serializeArray().map(function (x) { data[x.name] = x.value; });
-        console.log(JSON.stringify(data));
+        $("#form").serializeArray().map(function (x) {
+          if (x.name.indexOf("__") === -1) {
+            data[x.name] = x.value;
+          }
+        });
 
-        const data2 = formToJSON(form.elements);
-        console.log(JSON.stringify(data2, null, '  '));
+        data.photo_permission = $("#photo_permission").is(':checked') ? 'Yes' : 'No';
 
-        if ($("#gender_male").is(':checked')) {
-          data.gender = 'Male';
-        }
-        if ($("#gender_female").is(':checked')) {
-          data.gender = 'Female';
-        }
+        //console.log(JSON.stringify(data));
 
-        data.program = getProgram(data.age, data.program_day);
+        $(".participant").each(function (index, elem) {
+          var participantData = JSON.parse(JSON.stringify(data));
+          setParticipantData(participantData, elem);
 
-        sendRegistration(data);
+          //console.log(JSON.stringify(participantData));
+
+          sendRegistration(participantData, sendRegistrationResponse);
+        });
       });
     });
-
   </script>
+
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mask.min.js"></script>
+  <script type="text/javascript" src="js/programs.js"></script>
+  <script type="text/javascript" src="js/byc.js"></script>
 
   <script type="text/javascript">
-    $('.datepicker').pickadate({
-      selectMonths: true,
-      selectYears: 18,
-      min: new Date(2000, 0, 1),
-      max: new Date(2012, 4, 31),
-      today: '',
+    $('#signature_parent_date').datepicker({
+      autoClose: true,
+      format: 'm/d/yyyy',
       clear: 'Clear',
-      close: 'Ok',
-      closeOnSelect: true
+      close: 'Ok'
     });
-
-    $('#signature_parent_date').pickadate({
-      selectMonths: true,
-      selectYears: 1,
-      today: 'Today',
-      clear: 'Clear',
-      close: 'Ok',
-      closeOnSelect: true
-    });
-
   </script>
 </body>
 

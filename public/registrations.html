@@ -8,30 +8,60 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/4.11.0/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/4.11.0/firebase-auth.js"></script>
-    <!-- <script defer src="/__/firebase/4.11.0/firebase-database.js"></script> -->
-    <script defer src="https://www.gstatic.com/firebasejs/4.11.0/firebase-firestore.js"></script>
-    <script defer src="/__/firebase/4.11.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/4.11.0/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyB9zDy-fuURdxyeqvOCCeA2ynaicnbyin0",
+            authDomain: "bozemanyouthcycling-2019.firebaseapp.com",
+            databaseURL: "https://bozemanyouthcycling-2019.firebaseio.com",
+            projectId: "bozemanyouthcycling-2019",
+            storageBucket: "bozemanyouthcycling-2019.appspot.com",
+            messagingSenderId: "389216979437"
+        };
+        firebase.initializeApp(config);
+    </script>
 
-    <script defer type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script defer type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script defer type="text/javascript" src="js/materialize.min.js"></script>
 
+    <script defer type="text/javascript" src="js/programs.js"></script>
     <script defer type="text/javascript" src="js/registrations.js"></script>
 
     <style>
         h1 {
             font-size: 2rem;
-            /* margin: 0; */
+            margin: 0;
         }
 
         h2 {
             font-size: 1.5rem;
+        }
+
+        main {
+            margin: 25px auto;
+            padding: 25px;
+            width: 95%;
+        }
+
+        section.program-panel {
+            margin-bottom: 3em;
+        }
+
+        .program-table td {
+            vertical-align: top;
+            white-space: nowrap;
+        }
+
+        .program-table td>p {
+            margin: 0;
+        }
+
+        section.program-panel h2 {
+            color: teal;
         }
 
         i.delete-btn {
@@ -42,31 +72,22 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 id="registration-count">2018 Registrations: loading...</h1>
-
-        <section>
-            <h2>Meadow Pedalers (6 - 7) | Monday
-                <span id="meadow-pedalers-mon" class="badge new" data-badge-caption="">loading...</span>
-            </h2>
-            <div class="divider teal"></div>
-            <table class="highlight">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Gender</th>
-                        <th>Primary Emergency Contact</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="meadow-pedalers-list"></tbody>
-            </table>
-        </section>
+    <main>
+        <div class="row">
+            <div class="col s12 m3">
+                <img src="img/byc-logo.png" width="200px" />
+            </div>
+            <div class="col s12 m9">
+                <h1 id="registration-count" class="light right text-flow">2019 Registrations</h1>
+            </div>
+        </div>
 
         <div class="progress">
             <div class="indeterminate"></div>
         </div>
-    </div>
+
+        <div id="program-container"></div>
+    </main>
 
 </body>
 

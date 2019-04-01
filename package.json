@@ -1,10 +1,13 @@
 {
-  "name": "byc-2018",
+  "name": "byc-2019",
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
   "dependencies": {
-    "materialize-css": "^0.100.2"
+    "jquery": "^3.3.1",
+    "materialize-css": "^1.0.0",
+    "npm": "^6.9.0",
+    "tslint": "^5.14.0"
   },
   "devDependencies": {},
   "scripts": {
